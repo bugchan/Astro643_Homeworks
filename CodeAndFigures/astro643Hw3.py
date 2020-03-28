@@ -129,7 +129,3 @@ with open('Astro643Hw3P2Table.tex', 'w') as tf:
                          index=False,
                          escape=False))
 
-
-
-
-
