@@ -1,0 +1,93 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PROBLEM 1 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{}
+Practice the variable transformation. Please step-by-step prove Eq. (3.97) in the textbook:
+\begin{equation*}
+    \Gamma_3 -1 = \frac{P}{\rho T}\frac{\Xi_T}{c_V},
+\end{equation*}
+where $\Gamma_3 - 1 = \left(\frac{\partial\ln T}{\partial\ln\rho}\right)_S$ and $\Xi_T = \left(\frac{\partial\ln P}{\partial\ln T}\right)_V$ and $c_V = T\left(\frac{\partial S}{\partial T}\right)_V$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PROBLEM 2 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{}
+\subsection{}
+Please first get a numerical expression to estimate the election mean free path $\lambda$ in a white dwarf.
+
+\subsection{}
+Then estimate the timescale of the heat transfer via the thermal conduction across a white dwarf, assuming a size of $\approx 0.01R_\odot$, and compare the timescale with that of radiative transfer across the sun. 
+
+\subsection{}
+Reproduce $\kappa_{cond}$ of Eq.4.72 in the textbook by \\putting in all the numerical factors left out of the discussion leading up to that equation.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PROBLEM 3 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{HSK 5.3}
+Characterize the difference of the stellar material from the lab one.
+In the Navier-Stokes equation of motion for an incompressible 
+fluid (which is consistent with the Boussinesq approximation) we find a drag term $\nu\nabla^2\boldsymbol{w}$, where $\nu$ is the kinematic viscosity having the same units as $\nu_T$, the thermal diffusivity. We replace the Laplacian by $w/l^2$ and amend the equation of motion (5.22 in the textbook) to read
+\begin{equation*}
+    \frac{dw}{dt}=\frac{(\rho-\rho')}{\rho}g-\frac{\nu}{l^2}w.
+\end{equation*}
+
+The additional term always acts to decelerate the parcel. An estimate for $\nu$ is
+\begin{equation*}
+    \nu \approx \frac{2\times 10^15 T^{5/2}A_{1/2}}{\rho Z^4\ln\Delta_c}\text{cm}^2\text{s}^{-1},
+\end{equation*}
+where
+\begin{equation*}
+    \Delta_c \approx 10^4\frac{T^{3/2}}{n_e^{1/2}}
+\end{equation*}
+and A and Z are the atomic weight and charge of the ions. use this to make an estimate of the Prandtl number
+\begin{equation*}
+    \boldsymbol{Pr}=\frac{\nu}{\nu_T}
+\end{equation*}
+for a typical point in the sun. Note that laboratory experiments work around \textbf{Pr}$\approx 1$. What is the main cause for the difference?
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%% PROBLEM 4 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{HSK 5.4}
+The dimensionless Rayleigh number, \textbf{Ra}, is a measure of how well the driving of convection (as in $\nabla-\nabla_{ad}$ terms) compares to damping processes ($\nu_T$ and $\nu$). It is defined by 
+\begin{equation*}
+    Ra = \frac{Qg}{\lambda_P}(\nabla-\nabla_{ad})\frac{l^4}{\nu_T\nu}.
+\end{equation*}
+
+\subsection{}
+Compute a couple of sample values (one in the solar radiative zone and the other in the solar convective zone; e.g., see Fig 5.2 of the textbook). Laboratory experiments have Ra of about $10^11$ or less. Comments?
+
+\subsection{}
+Adopt and/or amend the relevant equations in the textbook (i.e., including the viscosity term; see the previous exercise) to show that Ra>1 implies that $w$ and $\delta T$ have exponentially  growing solutions. Laboratory convection usually sets in at about $\textbf{Ra}\approx10^3$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PROBLEM 5 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{6.10 HSK}
+Consider the two reactions $X(\alpha,\gamma)Y$ and $Y(\gamma,\alpha)X$, where the second reaction is the photo - disintegration inverse of the first.
+The rates for these, in obvious notation, are proportional to $<\sigma\nu>_{\alpha X} n_\alpha n_X$ and $\lambda_{\gamma Y} n_Y$. 
+Assume that the two reactions are in equilibrium during silicon burning so that 
+\begin{equation*}
+    X+\alpha\leftrightarrow{} Y+\gamma
+\end{equation*}
+where the reactions proceed equally rapidly in both directions.
+Therefore, the Saha equation can be used to find $\lambda_{\gamma Y}$ (which is notoriously difficult to find experimentally).
+Please prove that
+\begin{equation}
+    \lambda_{\gamma Y} = <\sigma\nu>_{\alpha X}\frac{g_\alpha g_X}{g_Y}\left(\frac{2\pi m_\alpha \kappa T}{h^3}\right)^{3/2}e^{-Q/\kappa T},
+\end{equation}
+where Q is the Q-value for $X(\alpha,\gamma)Y$, $m_\alpha$ is the mass of $\alpha$ and is much less than the mass of X, and $gs$ are the statistical weights.
+For the $^{24}\text{Mg}(\alpha,\gamma)^{28}\text{Si}$ reaction the binding energies per nucleon for $\alpha$,$^{24}\text{Mg}$, and $^{28}\text{Si}$ are, respectively, 7.074, 8.26, and 8.447 MeV.
+What is Q?
+What kind of temperatures would this imply for equilibrium?
+(This is a bit of a phony because at high temperatures excited states may be populated and these can partake in the reaction.)
+
+
+
