@@ -3,9 +3,38 @@ Suppose that a star is made of ideal gas, is dominated by radiative heat transfe
 Neglecting radiation pressure, please show that the star is a polytrope of index $n = 3$.
 
 \section{}
-Use some decent integrator to construct a polytrope with index $n = 3$.
+\textbf{Use some decent integrator to construct a polytrope with index $n = 3$.
 The simplest method is to shoot for a solution. 
-Please a) plot $\theta_3$ as a function of $\xi$ and b) calculate $\xi_1$, $-\theta_3^\prime(\xi_1)$, and $\rho_c/\langle\rho\rangle$ and check your results with Table 7.1 in HSK.
+Please a) plot $\theta_3$ as a function of $\xi$ and b) calculate $\xi_1$, $-\theta_3^\prime(\xi_1)$, and $\rho_c/\langle\rho\rangle$ and check your results with Table 7.1 in HSK.}
+
+To find a solution we start with Lane-Emden Equation given by 
+\begin{equation}
+    \frac{1}{\xi^2}\frac{d}{d\xi}\left(\xi^2\frac{d\theta_n}{d\xi}\right) = -\theta_n^n
+\end{equation}
+Following the textbook, we can do the substitutions $x=\xi$, $y=\theta_n$ and $z=y^\prime=dy/dx$, then Lane-Emden equation gets into
+\begin{align*}
+    \frac{1}{x^2}\frac{d}{dx}\left(x^2 z\right) = -y^n \\
+    \frac{1}{x^2}(2xz + x^2z^\prime) =  -y^n \\
+    z^\prime = -y^n - \frac{2z}{x} \numberthis \label{eq:LaneEmden}
+\end{align*}
+
+We can solve this equation for several values of n, including $n=3$. 
+
+\begin{figure}
+    \centering
+    \includegraphics{CodeAndFigures/Astro643Hw3P2Plot.png}
+    \caption{Solutions for polytropes with index values $n=0,1,1.5,2,3,4$ where the fill circles mark the position of $\xi_1$ defined by $\theta_n(\xi_1)=0$ and whose value can be seen on Table \ref{tab:LaneEmdenSolutions}.}
+    \label{fig:LaneEmdenSolutions}
+\end{figure}
+
+\begin{table}[]
+    \centering
+    \input{CodeAndFigures/Astro643Hw3P2Table}
+    \caption{Solutions for polytropes with index values $n=0,1.5,1,2,3,4$ where the columns ending with "True" are the values given in Table 7.1 of the textbook and are included for comparison.}
+    \label{tab:LaneEmdenSolutions}
+\end{table}
+
+
 
 \section{}
 Estimate the Chandrasekhar's mass of a zero temperature white dwarf, when electrons become extreme relativistic degenerate.
