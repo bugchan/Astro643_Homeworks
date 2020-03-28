@@ -2,22 +2,13 @@
 """
 Created on Fri Mar 27 15:39:04 2020
 
-@author: sandy
-
-1. summary
-2. extended summary (optional)
-3. see also (optional)
-4. references (optional)
-5. examples (optional)
-
-See: https://numpydoc.readthedocs.io/en/latest/format.html
+@author: Sandra Bustamante
 
 """
 
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
-
 
 #%% Problem 2
 
@@ -26,7 +17,7 @@ def RK4(dvdt, a, b, h, IV, dim=2, *args):
 
     Parameters
     ----------
-    dvdt : TYPE
+    dvdt : definition
         DESCRIPTION.
     a : TYPE
         DESCRIPTION.
@@ -110,6 +101,11 @@ ax.grid()
 ax.legend()
 ax.set_ylim(-.1, 1)
 ax.set_xlim(x_a, x_b)
+ax.set_xlabel(r'$\xi$')
+ax.set_ylabel(r'$\theta_n$')
+fig.tight_layout()
+fig.savefig('Astro643Hw3P2Plot.png')
+
 
 #create dataframe
 df = pd.DataFrame(data, columns=('n', 'x1', '-z1','ratio'))
@@ -125,10 +121,10 @@ df.rename(columns = {'n':r'n',
                      'xTrue':r'$\xi_1$ True', 
                      '-z1':r'$-\theta_n^\prime(\xi_1)$',
                      'zTrue':r'$-\theta_n^\prime(\xi_1)$ True',
-                     'ratio':r'$\frac{1}{3}\left(\frac{\xi}{-\theta_n^\prime}\right)_\xi_1'
+                     'ratio':r'$\frac{1}{3}\left(\frac{\xi}{-\theta_n^\prime}\right)_\xi_1$'
                      }, inplace = True)
 
-with open('Astro643Hw3Problem2.tex', 'w') as tf:
+with open('Astro643Hw3P2Table.tex', 'w') as tf:
     tf.write(df.to_latex(float_format='%.3f',
                          index=False,
                          escape=False))
