@@ -74,6 +74,9 @@ a = (P**2*cons.G*2*cons.mSun/(4*np.pi**2))**(1/3)  # cm
 print('  a = {:.3e} AU'.format(a/cons.AU2cm))
 eclipseAngle = np.rad2deg(np.arccos((2*cons.rSun)/a))
 print('  Eclipsing Angle = {:.3f} deg'.format(eclipseAngle))
+
+angBinarySec = (a/cons.AU2cm)/422.8
+print('  Angular separation = {:.3e}arcsec'.format(angBinarySec))
 hubbleRes = 551e-9/2.3
 hubbleResSec = np.rad2deg(hubbleRes)*60*60
 print('  Hubble\'s resolution = {:.3e}rad'.format(hubbleRes))
@@ -154,16 +157,15 @@ Av_NIR2MS = -.45
 Av_NIR2G = -1.5
 Av_NIR2SG = -1.9
 
-
 ax1.errorbar(NIR_HK+E_HKv*Av_NIR2MS, NIR_JH+E_JHv*Av_NIR2MS,
              xerr=0.06, yerr=0.09, fmt='*', color='C0',
-             markersize=4, label='Av = {:.2f}'.format(Av_NIR2MS))
+             markersize=4, label='Av = {:.2f}'.format(-Av_NIR2MS))
 ax1.errorbar(NIR_HK+E_HKv*Av_NIR2G, NIR_JH+E_JHv*Av_NIR2G,
              xerr=0.06, yerr=0.09, fmt='*', color='C1',
-             markersize=4, label='Av = {:.2f}'.format(Av_NIR2G))
+             markersize=4, label='Av = {:.2f}'.format(-Av_NIR2G))
 ax1.errorbar(NIR_HK+E_HKv*Av_NIR2SG, NIR_JH+E_JHv*Av_NIR2SG,
              xerr=0.06, yerr=0.09, fmt='*', color='C2',
-             markersize=4, label='Av = {:.2f}'.format(Av_NIR2SG))
+             markersize=4, label='Av = {:.2f}'.format(-Av_NIR2SG))
 
 ax1.grid()
 ax1.legend()
