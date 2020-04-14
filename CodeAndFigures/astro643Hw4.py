@@ -19,16 +19,75 @@ import constants as cons
 import pandas as pd
 import matplotlib
 import matplotlib.pyplot as plt
+import SetupPlots as SP
+from matplotlib.backends.backend_pgf import FigureCanvasPgf
+matplotlib.backend_bases.register_backend('pdf', FigureCanvasPgf)
 
-matplotlib.use("pgf")
-matplotlib.rcParams.update({
-    "pgf.texsystem": "pdflatex",
-    'font.family': 'serif',
-    'text.usetex': True,
-    'pgf.rcfonts': False,
-})
+width, height = SP.setupPlot(False)
 
-#%% Problem 4
+# matplotlib.use('Qt5Agg', warn=False)
+# matplotlib.rcParams.update({
+# #     "pgf.texsystem": "pdflatex",
+# 'backend': 'module://ipykernel.pylab.backend_inline',
+# #     'font.family': 'serif',
+#     'text.usetex': False,
+# #     'pgf.rcfonts': False,
+# })
+
+# %% Problem 1
+
+M = 1.4*cons.mSun
+R_WD = cons.rEarth
+R_NS = 10e3  # meter
+mCarbon = 12/cons.NA  # g
+Qcarbon = 4.62e6*cons.eV2erg
+Qsophia = 2.49e9*cons.eV2erg
+Qbook = 8.25e-5  # ergs
+n = 3
+coeff = 3/(5-n)
+
+EgravWD = coeff*cons.G*M**2/R_WD
+EgravNS = coeff*cons.G*M**2/R_NS
+
+Enuclear = Qbook*M/mCarbon
+# Enuclear = Qsophia*M/58.6
+
+print('Problem 1')
+print('  EgravWD = {:.2e} ergs'.format(EgravWD))
+print('  EgravNS = {:.2e} ergs'.format(EgravNS))
+print('  Enuclear = {:.2e} ergs'.format(Enuclear))
+print('')
+
+# %% Problem 3
+
+MvSun = 5.072
+mvStar = 14
+
+logd = (mvStar-MvSun+5)/5
+d = 10**(logd)
+
+print('Problem 3')
+print('  log(d) = {:.3f}'.format(logd))
+print('  d = {:.3f}'.format(d))
+
+P = 25*cons.day2sec  # seconds
+vobs = 20e5  # cm/s
+
+sini = vobs*(2*P/(np.pi*cons.G*cons.mSun))**(1/3)
+inclination = np.arcsin(sini)
+print('  sin(i) = {:.3f}'.format(sini))
+print('  i = {:.3f} rad = {:.3f} deg'.format(inclination,
+                                             np.rad2deg(inclination)))
+
+a = (P**2*cons.G*2*cons.mSun/(4*np.pi**2))**(1/3)  # cm
+print('  a = {:.3e} AU'.format(a/cons.AU2cm))
+eclipseAngle = np.rad2deg(np.arccos((2*cons.rSun)/a))
+print('  Eclipsing Angle = {:.3f} deg'.format(eclipseAngle))
+hubbleRes = 551e-9/2.3
+print('  Hubble\'s resolution = {:.3e}rad'.format(hubbleRes))
+print('  Hubble\'s resolution = {:.3e}arcsec'.format(np.rad2deg(hubbleRes)*60*60))
+
+# %% Problem 4
 
 MainSequence = pd.read_csv('ASTRO643_HW4P4_Tables - MainSequence.csv')
 Giants = pd.read_csv('ASTRO643_HW4P4_Tables - Giants.csv')
@@ -44,84 +103,163 @@ G_HK = Giants['(V-K)0']-Giants['(V-H)0']
 SG_JH = SuperGiants['(V-H)0']-SuperGiants['(V-J)0']
 SG_HK = SuperGiants['(V-K)0']-SuperGiants['(V-H)0']
 
-A_jv = extinction[extinction.Filter=='J']['A_lambda/A_V'].iloc[0]
-A_hv = extinction[extinction.Filter=='H']['A_lambda/A_V'].iloc[0]
-A_kv = extinction[extinction.Filter=='K']['A_lambda/A_V'].iloc[0]
+
+# # %% Reddening Vector
+
+A_jv = extinction[extinction.Filter == 'J']['A_lambda/A_V'].iloc[0]
+A_hv = extinction[extinction.Filter == 'H']['A_lambda/A_V'].iloc[0]
+A_kv = extinction[extinction.Filter == 'K']['A_lambda/A_V'].iloc[0]
+# color excess in terms of Av
 E_JHv = A_jv - A_hv
 E_HKv = A_hv - A_kv
-
-
-#%% Reddening Vector
-
 Rv = 3.1
 E_BV = 1
+# calculation of Av
 Av = Rv*E_BV
+# real color excess
 E_JH = E_JHv*Av
 E_HK = E_HKv*Av
-x0 = -.4
-y0 = 0
+# origin for arrow
+x0 = 0.3
+y0 = 0.5
 
-#%% NIR-Object
 
-J_mag = 12.66 
+# # %% NIR-Object
+J_mag = 12.66
 H_mag = 11.77
 K_mag = 11.51
 
 NIR_JH = J_mag - H_mag
 NIR_HK = H_mag - K_mag
 
-# %% Plot
+# # %% Plot
 
-fig1 = plt.figure(1, figsize = (5, 7))
-ax1 = fig1.add_subplot(3, 1, 1)
-ax1.scatter(MS_HK, MS_JH, color='C0', label = 'Main Sequence')
-ax1.arrow(x0,y0,E_HK,E_JH, head_width=.05, fc='black',
-          label = 'Reddening E(B-V)')
-ax1.plot(NIR_HK, NIR_JH,'*',color='C4', label='NIR Object')
+fig1 = plt.figure(figsize=(width, height))
+
+# ax1 = fig1.add_subplot(grid[0])
+ax1 = fig1.add_subplot()
+ax1.plot(MS_HK, MS_JH, '-', color='C0', label='Main Sequence')
+# ax1.arrow(x0, y0, E_HK, E_JH, head_width=.05, fc='black',
+#           label='Reddening E(B-V)')
+# ax1.plot(NIR_HK, NIR_JH, '*', color='C4', label='NIR Object')
 ax1.set_ylabel(r'$(J-H)_0$')
 # ax1.set_xlabel(r'$(H-K)_0$')
-ax1.set_xlim(-1.2,.8)
-ax1.set_ylim(-.5,1.5)
-ax1.grid()
-ax1.legend()
+xlim1, xlim2 =  -1.1, 0.6
+ylim1, ylim2 = 1.4, -0.25
+# ax1.set_xlim(xlim1, xlim2)
+# ax1.set_ylim(ylim1, ylim2)
+# ax1.grid()
+# ax1.legend(loc='center left')
 
-
-ax2 = fig1.add_subplot(3, 1, 2, sharey=ax1, sharex = ax1)
-ax2.scatter(G_HK, G_JH, color='C1', label = 'Giants')
-ax2.arrow(x0,y0,E_HK,E_JH, head_width=.05, fc='black',
-          label = 'Reddening E(B-V)')
-ax2.plot(NIR_HK, NIR_JH,'*',color='C4', label='NIR Object')
-ax2.set_ylabel(r'$(J-H)_0$')
+# ax2 = fig1.add_subplot(grid[1])
+ax2 = ax1
+ax2.plot(G_HK, G_JH, '-', color='C1', label='Giants')
+# ax2.arrow(x0, y0, E_HK, E_JH, head_width=.05, fc='black',
+#           label='Reddening E(B-V)')
+# ax2.plot(NIR_HK, NIR_JH, '*', color='C4', label='NIR Object')
+# ax2.set_ylabel(r'$(J-H)_0$')
 # ax2.set_xlabel(r'$(H-K)_0$')
-ax2.grid()
-ax2.legend()
+# ax2.set_ylim(ylim1, ylim2)
+# ax2.set_yticks([])
+# ax2.grid()
+# ax2.legend(loc='center left')
 
 
-ax3 = fig1.add_subplot(3, 1, 3, sharey=ax1, sharex = ax1)
-ax3.scatter(SG_HK, SG_JH, color='C2', label = 'SuperGiants')
-ax3.arrow(x0,y0,E_HK,E_JH, head_width=.05, fc='black',
-          label = 'Reddening E(B-V)')
-ax3.plot(NIR_HK, NIR_JH,'*',color='C4', label='NIR Object')
-ax3.set_ylabel(r'$(J-H)_0$')
+# ax3 = fig1.add_subplot(grid[2])
+ax3 = ax1
+ax3.plot(SG_HK, SG_JH, '-', color='C2', label='SuperGiants')
+# ax3.arrow(x0, y0, E_HK, E_JH, head_width=.05, fc='black',
+#           label='Reddening E(B-V)')
+# ax3.plot(NIR_HK, NIR_JH, '*', color='C4', markersize=5,
+#          label='NIR Object')
+# ax3.set_ylabel(r'$(J-H)_0$')
 # ax3.set_xlabel(r'$(H-K)_0$')
-ax3.grid()
-ax3.legend()
+# ax3.set_ylim(ylim1, ylim2)
+# ax3.set_yticks([])
+# ax3.grid()
+# ax3.legend(loc='center left')
 
-fig1.tight_layout()
+for ax in fig1.axes:
+    ax.arrow(x0, y0, E_HK, E_JH, head_width=.05, fc='black',
+             label='Reddening E(B-V)')
+    ax.plot(NIR_HK, NIR_JH, '*', color='C4', markersize=5,
+            label='NIR Object')
+    ax.set_xlabel(r'$(H-K)_0$')
+    ax.set_xlim(xlim1, xlim2)
+    ax.set_ylim(ylim1, ylim2)
+    ax.grid()
+    ax.legend(loc='center left')
 
-fig1.savefig('ASTRO643_HW4P4.pgf')
+# extinction for Near Infrared Object
+Av_NIR2MS = -.2
+ax1.plot(NIR_HK+E_HKv*Av_NIR2MS, NIR_JH+E_JHv*Av_NIR2MS, '*', color='C0',
+         markersize=3, label='Reddening E(B-V)')
+ax1.text(NIR_HK-.45, NIR_JH+.05, r'$A_v={:.1f}$'.format(-Av_NIR2MS),
+         color='C4', fontsize=6)
 
-# plt.annotate('Reddening E(B-V)=1',(1.8*x0,y0+.2))
+Av_NIR2G = -1.4
+ax1.plot(NIR_HK+E_HKv*Av_NIR2G, NIR_JH+E_JHv*Av_NIR2G, '*', color='C1',
+         markersize=3, label='Reddening E(B-V)')
+
+Av_NIR2SG = -1.3
+ax3.plot(NIR_HK+E_HKv*Av_NIR2G, NIR_JH+E_JHv*Av_NIR2G, '*', color='C2',
+         markersize=3, label='Reddening E(B-V)')
 
 
+# fig1.savefig('ASTRO643_HW4P4.pgf')
 
 
+# %% Problem 5
+
+def IMFunc(m, index, coeff=1):
+    return coeff*m**(-index)
 
 
+# constants
+expa = 1.3      # index for .1 < M < .5mSun
+expb = 2.35     # index for >= .5mSun
+minMass = .1    # mSun
+medMass = .5    # mSun
+maxMass = 100   # mSun
+n = 6           # mSun yr^-1
+
+# Math
+M = np.logspace(np.log10(minMass), np.log10(maxMass), 100)
+
+# C in terms of D
+AB = IMFunc(medMass, expb, 1) / IMFunc(medMass, expa, 1)  # B
+
+# integration
+a = (-expa + 1.)
+b = (-expb + 1.)
+AxM = (1/a)*(medMass**a - minMass**a)  # xA
+BxM = (1/b)*(maxMass**b - medMass**b)  # xB
+nB = AxM*AB + BxM
+B = n/nB
+A = AB*B
+
+print('IMF: {:.2f}*M^{:.2f} for .1 < M < .5mSun'.format(A, expa))
+print('IMF: {:.2f}*M^{:.2f} for M >= .5mSun'.format(B, expb))
+
+# IMF
+IMF_a = IMFunc(M[M < medMass], expa, A)
+IMF_b = IMFunc(M[M >= medMass], expb, B)
+IMF = np.concatenate((IMF_a, IMF_b))
+
+# Supernovae rate
+SNRyear_100 = (B/b)*(100**b-8**b)
+SNRyear_inf = (B/b)*(-8**b)
+print('SNR from 8-100 Msun per century: {:.2f}'.format(SNRyear_100*100))
+print('SNR from 8-inf Msun per century: {:.2f}'.format(SNRyear_inf*100))
 
 
+fig2 = plt.figure(figsize=(width, height))
+ax4 = fig2.add_subplot(1, 1, 1)
+ax4.loglog(M, IMF)
+ax4.text(.3, 10, r'$M^{-1.3}$', fontsize=6)
+ax4.text(10, .01, r'$M^{-2.35}$', fontsize=6)
+ax4.set_xlabel(r'm $[M_\odot]$')
+ax4.set_ylabel(r'IMF $ [M_\odot] $')
+ax4.grid(True, which='both')
 
-
-
-
-
+fig2.savefig('ASTRO643_HW4P5plot.pgf')
