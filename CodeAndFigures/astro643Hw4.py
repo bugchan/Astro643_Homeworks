@@ -25,15 +25,6 @@ matplotlib.backend_bases.register_backend('pdf', FigureCanvasPgf)
 
 width, height = SP.setupPlot(False)
 
-# matplotlib.use('Qt5Agg', warn=False)
-# matplotlib.rcParams.update({
-# #     "pgf.texsystem": "pdflatex",
-# 'backend': 'module://ipykernel.pylab.backend_inline',
-# #     'font.family': 'serif',
-#     'text.usetex': False,
-# #     'pgf.rcfonts': False,
-# })
-
 # %% Problem 1
 
 M = 1.4*cons.mSun
@@ -137,13 +128,16 @@ NIR_HK = H_mag - K_mag
 # # %% Plot
 fig1 = plt.figure(figsize=(1.5*width, 1.5*height))
 ax1 = fig1.add_subplot()
-ax1.plot(MS_HK, MS_JH, '-', color='C0', label='Main Sequence')
-ax1.plot(G_HK, G_JH, '-', color='C1', label='Giants')
-ax1.plot(SG_HK, SG_JH, '-', color='C2', label='SuperGiants')
+ax1.plot(MS_HK, MS_JH, '-', color='C0', label='Main Sequence',
+         linewidth=1)
+ax1.plot(G_HK, G_JH, '-', color='C1', label='Giants',
+         linewidth=1)
+ax1.plot(SG_HK, SG_JH, '-', color='C2', label='SuperGiants',
+         linewidth=1)
 
 ax1.arrow(x0, y0, E_HK, E_JH, head_width=.03, fc='black',
           linewidth=1)
-ax1.text(x0+.1, y0, r'$A_v=3.1$')
+ax1.text(x0+.1, y0, r'$A_v=3.1$', fontsize=8)
 
 ax1.errorbar(NIR_HK, NIR_JH, xerr=0.06, yerr=0.09, fmt='*', color='C4',
              markersize=5, label='NIR Object')
@@ -156,20 +150,20 @@ ax1.set_xlim(xlim1, xlim2)
 ax1.set_ylim(ylim1, ylim2)
 
 # extinction for Near Infrared Object
-Av_NIR2MS = -.4
+Av_NIR2MS = -.45
 Av_NIR2G = -1.5
 Av_NIR2SG = -1.9
 
 
 ax1.errorbar(NIR_HK+E_HKv*Av_NIR2MS, NIR_JH+E_JHv*Av_NIR2MS,
              xerr=0.06, yerr=0.09, fmt='*', color='C0',
-             markersize=3, label='Av = {:.2f}'.format(Av_NIR2MS))
+             markersize=4, label='Av = {:.2f}'.format(Av_NIR2MS))
 ax1.errorbar(NIR_HK+E_HKv*Av_NIR2G, NIR_JH+E_JHv*Av_NIR2G,
              xerr=0.06, yerr=0.09, fmt='*', color='C1',
-             markersize=3, label='Av = {:.2f}'.format(Av_NIR2G))
+             markersize=4, label='Av = {:.2f}'.format(Av_NIR2G))
 ax1.errorbar(NIR_HK+E_HKv*Av_NIR2SG, NIR_JH+E_JHv*Av_NIR2SG,
              xerr=0.06, yerr=0.09, fmt='*', color='C2',
-             markersize=3, label='Av = {:.2f}'.format(Av_NIR2SG))
+             markersize=4, label='Av = {:.2f}'.format(Av_NIR2SG))
 
 ax1.grid()
 ax1.legend()
@@ -191,7 +185,7 @@ medMass = .5    # mSun
 maxMass = 100   # mSun
 n = 6           # mSun yr^-1
 
-# Math
+# Mass Array
 M = np.logspace(np.log10(minMass), np.log10(maxMass), 100)
 
 # C in terms of D
@@ -224,11 +218,11 @@ print('  SNR from 8-inf Msun per century: {:.2f}'.format(SNRyear_inf*100))
 
 fig2 = plt.figure(figsize=(1.5*width, 1.5*height))
 ax4 = fig2.add_subplot(1, 1, 1)
-ax4.loglog(M, IMF)
-ax4.text(.3, 10, r'$M^{-1.3}$', fontsize=6)
-ax4.text(10, .01, r'$M^{-2.35}$', fontsize=6)
+ax4.loglog(M, IMF, linewidth=1)
+ax4.text(.3, 10, r'$M^{-1.3}$', fontsize=8)
+ax4.text(10, .01, r'$M^{-2.35}$', fontsize=8)
 ax4.set_xlabel(r'm $[M_\odot]$')
 ax4.set_ylabel(r'IMF $ [M_\odot] yr^{-1} $')
-ax4.grid(True, which='both')
+ax4.grid(True)
 
 fig2.savefig('ASTRO643_HW4P5plot.pdf')
