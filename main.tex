@@ -2,6 +2,7 @@
 \usepackage{fullpage}
 \usepackage[top=2cm, bottom=4cm, left=2cm, right=2cm]{geometry}
 \usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{bm}
 \usepackage{lastpage}
 \usepackage{enumerate}
 \usepackage{fancyhdr}
@@ -25,6 +26,12 @@
 \usepackage{pgfplotstable} % Generates table from .csv
 \pgfplotsset{compat=1.16}
 \usepackage{needspace}
+\usepackage{pgfplots}
+\usepackage{import}
+
+% command to right unit vector with hats
+\newcommand{\uveci}{{\bm{\hat{\textnormal{\bfseries\i}}}}}
+\newcommand{\uvecj}{{\bm{\hat{\textnormal{\bfseries\j}}}}}
 
 % Setup siunitx:
  \sisetup{
@@ -98,9 +105,9 @@
 % \twocolumn
 % \lstset{style=Python}
 
-textwidth is \the\textwidth/72 [in] \\
-column width is \the\columnwidth \\
-textheight is \the\textheight
+% textwidth is \the\textwidth/72 [in] \\
+% column width is \the\columnwidth \\
+% textheight is \the\textheight
 
 % \input{hw1.tex}
 % \input{hw2.tex}
