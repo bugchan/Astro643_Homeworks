@@ -206,7 +206,8 @@ ax3.plot(NIR_HK+E_HKv*Av_NIR2G, NIR_JH+E_JHv*Av_NIR2G, '*', color='C2',
          markersize=3, label='Reddening E(B-V)')
 
 
-# fig1.savefig('ASTRO643_HW4P4.pgf')
+fig1.savefig('ASTRO643_HW4P4plot.pgf')
+fig1.savefig('ASTRO643_HW4P4plot.pdf')
 
 
 # %% Problem 5
@@ -263,3 +264,4 @@ ax4.set_ylabel(r'IMF $ [M_\odot] $')
 ax4.grid(True, which='both')
 
 fig2.savefig('ASTRO643_HW4P5plot.pgf')
+fig2.savefig('ASTRO643_HW4P5plot.pdf')
