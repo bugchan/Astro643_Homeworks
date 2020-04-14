@@ -94,6 +94,7 @@ Giants = pd.read_csv('ASTRO643_HW4P4_Tables - Giants.csv')
 SuperGiants = pd.read_csv('ASTRO643_HW4P4_Tables - SuperGiants.csv')
 extinction = pd.read_csv('ASTRO643_HW4P4_Tables - Extinction.csv')
 
+#%%
 MS_JH = MainSequence['(V-H)0']-MainSequence['(V-J)0']
 MS_HK = MainSequence['(V-K)0']-MainSequence['(V-H)0']
 
@@ -120,9 +121,8 @@ Av = Rv*E_BV
 E_JH = E_JHv*Av
 E_HK = E_HKv*Av
 # origin for arrow
-x0 = 0.3
-y0 = 0.5
-
+x0 = 0.2
+y0 = 0.3
 
 # # %% NIR-Object
 J_mag = 12.66
@@ -133,80 +133,43 @@ NIR_JH = J_mag - H_mag
 NIR_HK = H_mag - K_mag
 
 # # %% Plot
-
-fig1 = plt.figure(figsize=(width, height))
-
-# ax1 = fig1.add_subplot(grid[0])
+fig1 = plt.figure(figsize=(1.5*width, 1.5*height))
 ax1 = fig1.add_subplot()
 ax1.plot(MS_HK, MS_JH, '-', color='C0', label='Main Sequence')
-# ax1.arrow(x0, y0, E_HK, E_JH, head_width=.05, fc='black',
-#           label='Reddening E(B-V)')
-# ax1.plot(NIR_HK, NIR_JH, '*', color='C4', label='NIR Object')
+ax1.plot(G_HK, G_JH, '-', color='C1', label='Giants')
+ax1.plot(SG_HK, SG_JH, '-', color='C2', label='SuperGiants')
+
+ax1.arrow(x0, y0, E_HK, E_JH, head_width=.03, fc='black',
+          linewidth=1)
+ax1.text(x0+.1, y0, r'$A_v=3.1$')
+
+ax1.errorbar(NIR_HK, NIR_JH, xerr=0.06, yerr=0.09, fmt='*', color='C4',
+             markersize=5, label='NIR Object')
+
+ax1.set_xlabel(r'$(H-K)_0$')
 ax1.set_ylabel(r'$(J-H)_0$')
-# ax1.set_xlabel(r'$(H-K)_0$')
-xlim1, xlim2 =  -1.1, 0.6
-ylim1, ylim2 = 1.4, -0.25
-# ax1.set_xlim(xlim1, xlim2)
-# ax1.set_ylim(ylim1, ylim2)
-# ax1.grid()
-# ax1.legend(loc='center left')
-
-# ax2 = fig1.add_subplot(grid[1])
-ax2 = ax1
-ax2.plot(G_HK, G_JH, '-', color='C1', label='Giants')
-# ax2.arrow(x0, y0, E_HK, E_JH, head_width=.05, fc='black',
-#           label='Reddening E(B-V)')
-# ax2.plot(NIR_HK, NIR_JH, '*', color='C4', label='NIR Object')
-# ax2.set_ylabel(r'$(J-H)_0$')
-# ax2.set_xlabel(r'$(H-K)_0$')
-# ax2.set_ylim(ylim1, ylim2)
-# ax2.set_yticks([])
-# ax2.grid()
-# ax2.legend(loc='center left')
-
-
-# ax3 = fig1.add_subplot(grid[2])
-ax3 = ax1
-ax3.plot(SG_HK, SG_JH, '-', color='C2', label='SuperGiants')
-# ax3.arrow(x0, y0, E_HK, E_JH, head_width=.05, fc='black',
-#           label='Reddening E(B-V)')
-# ax3.plot(NIR_HK, NIR_JH, '*', color='C4', markersize=5,
-#          label='NIR Object')
-# ax3.set_ylabel(r'$(J-H)_0$')
-# ax3.set_xlabel(r'$(H-K)_0$')
-# ax3.set_ylim(ylim1, ylim2)
-# ax3.set_yticks([])
-# ax3.grid()
-# ax3.legend(loc='center left')
-
-for ax in fig1.axes:
-    ax.arrow(x0, y0, E_HK, E_JH, head_width=.05, fc='black',
-             label='Reddening E(B-V)')
-    ax.plot(NIR_HK, NIR_JH, '*', color='C4', markersize=5,
-            label='NIR Object')
-    ax.set_xlabel(r'$(H-K)_0$')
-    ax.set_xlim(xlim1, xlim2)
-    ax.set_ylim(ylim1, ylim2)
-    ax.grid()
-    ax.legend(loc='center left')
+xlim1, xlim2 = -1.1, 0.6
+ylim1, ylim2 = -0.25, 1.4
+ax1.set_xlim(xlim1, xlim2)
+ax1.set_ylim(ylim1, ylim2)
 
 # extinction for Near Infrared Object
-Av_NIR2MS = -.2
+Av_NIR2MS = -.4
+Av_NIR2G = -1.5
+Av_NIR2SG = -1.9
+
+
 ax1.plot(NIR_HK+E_HKv*Av_NIR2MS, NIR_JH+E_JHv*Av_NIR2MS, '*', color='C0',
-         markersize=3, label='Reddening E(B-V)')
-ax1.text(NIR_HK-.45, NIR_JH+.05, r'$A_v={:.1f}$'.format(-Av_NIR2MS),
-         color='C4', fontsize=6)
-
-Av_NIR2G = -1.4
+         markersize=3, label='Av = {:.2f}'.format(Av_NIR2MS))
 ax1.plot(NIR_HK+E_HKv*Av_NIR2G, NIR_JH+E_JHv*Av_NIR2G, '*', color='C1',
-         markersize=3, label='Reddening E(B-V)')
+         markersize=3, label='Av = {:.2f}'.format(Av_NIR2G))
+ax1.plot(NIR_HK+E_HKv*Av_NIR2SG, NIR_JH+E_JHv*Av_NIR2SG, '*', color='C2',
+         markersize=3, label='Av = {:.2f}'.format(Av_NIR2SG))
 
-Av_NIR2SG = -1.3
-ax3.plot(NIR_HK+E_HKv*Av_NIR2G, NIR_JH+E_JHv*Av_NIR2G, '*', color='C2',
-         markersize=3, label='Reddening E(B-V)')
+ax1.grid()
+ax1.legend()
 
-
-fig1.savefig('ASTRO643_HW4P4plot.pgf')
+# fig1.savefig('ASTRO643_HW4P4plot.pgf')
 fig1.savefig('ASTRO643_HW4P4plot.pdf')
 
 
@@ -254,14 +217,14 @@ print('SNR from 8-100 Msun per century: {:.2f}'.format(SNRyear_100*100))
 print('SNR from 8-inf Msun per century: {:.2f}'.format(SNRyear_inf*100))
 
 
-fig2 = plt.figure(figsize=(width, height))
+fig2 = plt.figure(figsize=(1.5*width, 1.5*height))
 ax4 = fig2.add_subplot(1, 1, 1)
 ax4.loglog(M, IMF)
 ax4.text(.3, 10, r'$M^{-1.3}$', fontsize=6)
 ax4.text(10, .01, r'$M^{-2.35}$', fontsize=6)
 ax4.set_xlabel(r'm $[M_\odot]$')
-ax4.set_ylabel(r'IMF $ [M_\odot] $')
+ax4.set_ylabel(r'IMF $ [M_\odot] yr^{-1} $')
 ax4.grid(True, which='both')
 
-fig2.savefig('ASTRO643_HW4P5plot.pgf')
+# fig2.savefig('ASTRO643_HW4P5plot.pgf')
 fig2.savefig('ASTRO643_HW4P5plot.pdf')
