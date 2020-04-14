@@ -22,7 +22,7 @@ Note that the energy from nuclear burning is higher than the gravitational energ
 
 
 %==============================================================
-\newpage
+\Needspace{6\baselineskip}
 \section{}(20 points)
 \textbf{Consider the hypothetical evolution of a star of initial mass $M_0$.
 The star's core grows in mass as a result of nuclear burning.
@@ -71,7 +71,7 @@ Then, the core mass when the envelope vanishes is
     \label{eq:2coreMass}
 \end{equation}
 
-
+\Needspace{8\baselineskip}
 \subsection{}
 \textbf{Calculate the upper limit of $M_0$, for which the star will become a white dwarf (considering $M_{Ch} = 1.4M_\odot$), given $Q = \SI{5e18}{\erg\per\g}$ (from turning solar composition
 into carbon and oxygen) and $\alpha = \SI{1e-18}{g\per\erg}$.}
@@ -85,7 +85,7 @@ which is in agreement to the largest mass at which the electron degeneracy of a 
 
 
 %==============================================================
-\newpage
+
 \section{}(40 points)
 \textbf{In the following assume the visual magnitude of the Sun as seen from the Earth is $m_{V,\odot} = -26.5$, and the observed color index of the Sun is $(B-V)_\odot = 0.60$.}
 \subsection{}
@@ -191,7 +191,7 @@ The Hubble resolution is given by
 
 
 %==============================================================
-\newpage
+\Needspace{17\baselineskip}
 \section{}(20 points)
 \textbf{An X-ray source is detected near the plane of the Galaxy. 
 This source may represent an X-ray binary consisting of an accreting compact object (e.g., neutron star) and a normal star as the companion.
@@ -228,25 +228,27 @@ Figure \ref{fig:ColorColorDiagram} shows the resultant J-H vs H-K diagram at whi
 
 \begin{figure}
     \centering
-    \input{CodeAndFigures/ASTRO643_HW4P4.pgf}
+    \includegraphics{CodeAndFigures/ASTRO643_HW4P4plot.pdf}
     \caption{Color-Color diagram}
     \label{fig:ColorColorDiagram}
 \end{figure}
 
+\Needspace{8\baselineskip}
 \subsection{}
 \textbf{Assuming that the near-IR object is either a main sequence star or a giant star, estimate or constrain its extinction and compare it with the value inferred from the X-ray absorbing gas column density toward the X-ray source (using the $N_H/A_V = 1.8\times 10^{21} \text{atoms cm}^{-2} \text{ mag}^{-1}$).
 Is the near-IR object likely to be the counterpart of the X-ray source?
 Similar methods may be used to probe the nature of other types of objects (e.g., galaxies, accounting for extinction and red-shift effects).}
 
-From the column density, we can determined that the extinction of the X-ray is given by 
+From the column density, we can determine that the extinction of the X-ray is given by 
 \begin{equation*}
     A_v = \frac{N_H}{(N_H/A_V)} = \frac{(5\pm0.5)\times10^{22} \si{\per\cm\squared}}{1.8\times 10^{21} \text{ cm}^{-2} \text{ mag}^{-1}} = \num{27.777}\pm2.7 
 \end{equation*}
 
+The slope of the 
 
 
 %==============================================================
-\newpage
+
 \section{}(10 points)
 \textbf{Assuming that the star formation rate for the Galaxy is $6 M_\odot \si{\per\year}$ for the last 1 Gyr or so.}
 \subsection{} 
@@ -282,7 +284,7 @@ So given that n is equal to the star formation rate, we can find that
     A = B*0.5^{-1.05} = 1.7349 
 \end{align*}
 
-So the final IMF is given by
+So the final IMF is plotted in Figure \ref{fig:IMF} and is given by
 \begin{equation*}
     IMF = \frac{dn}{dM} = 
     \begin{cases} 
@@ -291,21 +293,26 @@ So the final IMF is given by
    \end{cases}
 \end{equation*}
 
-Figure \ref{fig:IMF} shows 
-
 \begin{figure}
     \centering
-    \input{CodeAndFigures/Astro643_HW4P5plot.pdf}
-    \caption{Caption}
+    \includegraphics{CodeAndFigures/ASTRO643_HW4P5plot.pdf}
+    \caption{Salpeter IMF with index of $x = 2.35$ for $M \geq 0.5M_\odot$ and $x = 1.3$ for $0.1M_\odot\leq M < 0.5M_\odot$ and normalized to $6 M_\odot \si{\per\year}$}
     \label{fig:IMF}
 \end{figure}
 
-
+\Needspace{8\baselineskip}
 \subsection{}
-Further assuming that all stars between $8$ and $100M_\odot$ explode as core-collapsed supernovae, estimate the corresponding present supernova rate. 
+\textbf{Further assuming that all stars between $8$ and $100M_\odot$ explode as core-collapsed supernovae, estimate the corresponding present supernova rate. 
 How much difference does it make if the upper mass limit for supernovae is assumed to be infinite? (The observed rate for
-core-collapsed supernovae in galaxies like our own is of the order of 2 to 3 per century.)
+core-collapsed supernovae in galaxies like our own is of the order of 2 to 3 per century.)}
 
+The supernova rate (SNR) can be derived from the integration of the Initial Mass Function so the supernovas per year are given by,
+\begin{align*}
+    SNR = \int_{8M_\odot}^{100M_\odot}0.8379(M/M_\odot)^{-2.35} = 0.0362\quad SN yr^{-1} = 3.62 \text{ SN century}^{-1}\\
+    SNR = \int_{8M_\odot}^{\infty}0.8379(M/M_\odot)^{-2.35} = 0.0375\quad SN yr^{-1} = 3.75 \text{ SN century}^{-1}\\
+\end{align*}
+
+The difference is only $0.13$ supernovas per century. It makes sense since there are a very small number of massive stars than lower massive stars. So the lower massive stars have a higher contribution to the Supernova rate. 
 
 
 
