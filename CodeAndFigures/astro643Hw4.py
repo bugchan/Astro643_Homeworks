@@ -84,8 +84,9 @@ print('  a = {:.3e} AU'.format(a/cons.AU2cm))
 eclipseAngle = np.rad2deg(np.arccos((2*cons.rSun)/a))
 print('  Eclipsing Angle = {:.3f} deg'.format(eclipseAngle))
 hubbleRes = 551e-9/2.3
+hubbleResSec = np.rad2deg(hubbleRes)*60*60
 print('  Hubble\'s resolution = {:.3e}rad'.format(hubbleRes))
-print('  Hubble\'s resolution = {:.3e}arcsec'.format(np.rad2deg(hubbleRes)*60*60))
+print('  Hubble\'s resolution = {:.3e}arcsec'.format(hubbleResSec))
 
 # %% Problem 4
 
@@ -94,7 +95,8 @@ Giants = pd.read_csv('ASTRO643_HW4P4_Tables - Giants.csv')
 SuperGiants = pd.read_csv('ASTRO643_HW4P4_Tables - SuperGiants.csv')
 extinction = pd.read_csv('ASTRO643_HW4P4_Tables - Extinction.csv')
 
-#%%
+
+# %%
 MS_JH = MainSequence['(V-H)0']-MainSequence['(V-J)0']
 MS_HK = MainSequence['(V-K)0']-MainSequence['(V-H)0']
 
@@ -159,17 +161,19 @@ Av_NIR2G = -1.5
 Av_NIR2SG = -1.9
 
 
-ax1.plot(NIR_HK+E_HKv*Av_NIR2MS, NIR_JH+E_JHv*Av_NIR2MS, '*', color='C0',
-         markersize=3, label='Av = {:.2f}'.format(Av_NIR2MS))
-ax1.plot(NIR_HK+E_HKv*Av_NIR2G, NIR_JH+E_JHv*Av_NIR2G, '*', color='C1',
-         markersize=3, label='Av = {:.2f}'.format(Av_NIR2G))
-ax1.plot(NIR_HK+E_HKv*Av_NIR2SG, NIR_JH+E_JHv*Av_NIR2SG, '*', color='C2',
-         markersize=3, label='Av = {:.2f}'.format(Av_NIR2SG))
+ax1.errorbar(NIR_HK+E_HKv*Av_NIR2MS, NIR_JH+E_JHv*Av_NIR2MS,
+             xerr=0.06, yerr=0.09, fmt='*', color='C0',
+             markersize=3, label='Av = {:.2f}'.format(Av_NIR2MS))
+ax1.errorbar(NIR_HK+E_HKv*Av_NIR2G, NIR_JH+E_JHv*Av_NIR2G,
+             xerr=0.06, yerr=0.09, fmt='*', color='C1',
+             markersize=3, label='Av = {:.2f}'.format(Av_NIR2G))
+ax1.errorbar(NIR_HK+E_HKv*Av_NIR2SG, NIR_JH+E_JHv*Av_NIR2SG,
+             xerr=0.06, yerr=0.09, fmt='*', color='C2',
+             markersize=3, label='Av = {:.2f}'.format(Av_NIR2SG))
 
 ax1.grid()
 ax1.legend()
 
-# fig1.savefig('ASTRO643_HW4P4plot.pgf')
 fig1.savefig('ASTRO643_HW4P4plot.pdf')
 
 
@@ -202,8 +206,9 @@ nB = AxM*AB + BxM
 B = n/nB
 A = AB*B
 
-print('IMF: {:.2f}*M^{:.2f} for .1 < M < .5mSun'.format(A, expa))
-print('IMF: {:.2f}*M^{:.2f} for M >= .5mSun'.format(B, expb))
+print('Problem 5')
+print('  IMF: {:.2f}*M^{:.2f} for .1 < M < .5mSun'.format(A, expa))
+print('  IMF: {:.2f}*M^{:.2f} for M >= .5mSun'.format(B, expb))
 
 # IMF
 IMF_a = IMFunc(M[M < medMass], expa, A)
@@ -213,8 +218,8 @@ IMF = np.concatenate((IMF_a, IMF_b))
 # Supernovae rate
 SNRyear_100 = (B/b)*(100**b-8**b)
 SNRyear_inf = (B/b)*(-8**b)
-print('SNR from 8-100 Msun per century: {:.2f}'.format(SNRyear_100*100))
-print('SNR from 8-inf Msun per century: {:.2f}'.format(SNRyear_inf*100))
+print('  SNR from 8-100 Msun per century: {:.2f}'.format(SNRyear_100*100))
+print('  SNR from 8-inf Msun per century: {:.2f}'.format(SNRyear_inf*100))
 
 
 fig2 = plt.figure(figsize=(1.5*width, 1.5*height))
@@ -226,5 +231,4 @@ ax4.set_xlabel(r'm $[M_\odot]$')
 ax4.set_ylabel(r'IMF $ [M_\odot] yr^{-1} $')
 ax4.grid(True, which='both')
 
-# fig2.savefig('ASTRO643_HW4P5plot.pgf')
 fig2.savefig('ASTRO643_HW4P5plot.pdf')
